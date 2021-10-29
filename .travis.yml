@@ -3,6 +3,7 @@ python:
   - "3.9"
 install:
   - pip install -r requirements.txt
-  - python ./mysite/manage.py migrate
+  - cd mysite
+  - python manage.py migrate
 script:
-  - python ./mysite/manage.py test
+  - python manage.py test
