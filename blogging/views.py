@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.shortcuts import get_object_or_404
+from django.contrib.syndication.views import Feed
 
 # def stub_view(request, *args, **kwargs):
 #     body = "Stub View\n\n"
@@ -38,6 +39,24 @@ class BlogDetailView(DetailView):
         context = {"object": post}
         return render(request, "blogging/detail.html", context)
 
+
+class BlogFeed(Feed):
+    title = 'Blog Feed'
+    link = '/feed/'
+    description = 'Feed of blog'
+
+    def items(self):
+        queryset = Post.objects.order_by("-published_date")
+        return queryset.exclude(published_date=None)
+
+    def item_title(self, item: Post):
+        return item.title
+
+    def item_description(self, item: Post) -> str:
+        return item.text
+
+    def item_link(self, item: Post) -> str:
+        return f'/posts/{item.pk}/'
 
 # def list_view(request):
 #     published = Post.objects.exclude(published_date__exact=None)
