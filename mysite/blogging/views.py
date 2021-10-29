@@ -54,3 +54,4 @@ class BlogDetailView(DetailView):
 #         raise Http404
 #     context = {'post': post}
 #     return render(request, 'blogging/detail.html', context)
+# 
