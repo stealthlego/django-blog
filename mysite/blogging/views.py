@@ -18,6 +18,9 @@ from django.views.generic.detail import DetailView
 
 class BlogListView(ListView):
     model = Post
+    
+    queryset = Post.objects.order_by('-published_date')
+    queryset = queryset.exclude(published_date=None)
     template_name = 'blogging/list.html'
 
 class BlogDetailView(DetailView):
