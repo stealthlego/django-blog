@@ -118,3 +118,6 @@ dmypy.json
 *.sqlite3
 
 /djangoenv
+
+*.DS_Store
+.DS_Store
