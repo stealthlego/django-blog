@@ -17,12 +17,14 @@ from django.shortcuts import get_object_or_404
 #         body += "\n".join(["\t%s: %s" % i for i in kwargs.items()])
 #     return HttpResponse(body, content_type="text/plain")
 
+
 class BlogListView(ListView):
     model = Post
-    
-    queryset = Post.objects.order_by('-published_date')
+
+    queryset = Post.objects.order_by("-published_date")
     queryset = queryset.exclude(published_date=None)
-    template_name = 'blogging/list.html'
+    template_name = "blogging/list.html"
+
 
 class BlogDetailView(DetailView):
     model = Post
@@ -33,8 +35,9 @@ class BlogDetailView(DetailView):
             post = published.get(pk=self.get_object().id)
         except Post.DoesNotExist:
             raise Http404
-        context = {'object': post}
-        return render(request, 'blogging/detail.html', context)
+        context = {"object": post}
+        return render(request, "blogging/detail.html", context)
+
 
 # def list_view(request):
 #     published = Post.objects.exclude(published_date__exact=None)
